@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ equipe.nom }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1>{{ equipe.nom }}</h1>
+                <p>{{ equipe.description }}</p>
+                <hr>
+                <a href="{{ path('equipe_list') }}" class="btn btn-secondary">Retour</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

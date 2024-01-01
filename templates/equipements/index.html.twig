@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Liste des équipements {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {# Ajoutez le lien vers le fichier CSS Bootstrap ici si vous ne l'avez pas déjà inclus dans votre base.html.twig #}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EYIAR/2mPPgjW8aU/2X6DZJ9giu6N6f" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif; /* Choisir votre police de caractères personnalisée ici */
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+
+    <div class="form-row align-items-end">
+        <div class="col">
+            {{ form_row(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom d\'équipement'}}) }}
+        </div>
+
+        <div class="col mt-5">
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-info">Rechercher</button>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+    {% if equipements %}
+        <table id="equipements" class="table table-striped mt-5">
+            <thead>
+                <tr>
+                    <th>Équipement</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for equipe in equipements %}
+                    <tr>
+                        <td>{{ equipe.nom }}</td>
+                        <td>{{ equipe.Description }}</td>
+                        <td class="row" >
+                            <a href="/equipe/{{ equipe.id }}" class="btn btn-dark"><i class="bi bi-eye"></i></a>
+                            <a href="/equipe/edit/{{ equipe.id }}" class="btn btn-outline-dark"><i class="bi bi-pen"></i> </a>
+                            <a href="/equipe/delete/{{ equipe.id }}" class="btn btn-outline-danger" 
+                               onclick="return confirm('Êtes-vous sûr de supprimer cette équipe?');"><i class="bi bi-trash-fill"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucun article</p>
+    {% endif %}
+{% endblock %}
